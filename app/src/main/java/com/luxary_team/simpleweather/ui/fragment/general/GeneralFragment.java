@@ -51,7 +51,7 @@ public class GeneralFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         String cityName = "Moscow";
-        if(!hasConnection(getContext())) {
+        if (!hasConnection(getContext())) {
             showMessage(R.string.internet_error);
         } else {
             Log.d("TAG", "general presenter == null ? : " + (getPresenter() == null) + " or " + mPresenter.getCityName());
@@ -91,24 +91,27 @@ public class GeneralFragment extends Fragment {
         //setCityName and DataTextView
         mCurrentWeatherView.setCityName(getPresenter().getCityName());
 
-        if (weather != null)
+        if (weather != null) {
             mCurrentWeatherView.setDateTextView(weather.getDt() * 1000L);
 
-        //setIcon not works!
-        mCurrentWeatherView.setWeatherIcon(weather.getWeather().getIcon());
+            //setIcon not works!
+            mCurrentWeatherView.setWeatherIcon(weather.getWeather().getIcon());
 
-        //setTemperature
-        mCurrentWeatherView.setTemperature(weather.getMain().getTemp());
+            //setTemperature
+            mCurrentWeatherView.setTemperature(weather.getMain().getTemp());
 
-        //setDecr
-        mCurrentWeatherView.setDescription(weather.getWeather().getDescription());
+            //setDecr
+            mCurrentWeatherView.setDescription(weather.getWeather().getDescription());
 
-        //setRain
-        if (weather.getRain() != null)
-            mCurrentWeatherView.setRain(weather.getRain().getRainValue());
+            //setRain
+            if (weather.getRain() != null)
+                mCurrentWeatherView.setRain(weather.getRain().getRainValue());
 
-        //setWind
-        mCurrentWeatherView.setWind(weather.getWind().getWindMS());
+            //setWind
+            mCurrentWeatherView.setWind(weather.getWind().getWindMS());
+        } else {
+            Toast.makeText(getContext(), getContext().getText(R.string.internet_error), Toast.LENGTH_LONG).show();
+        }
     }
 
     public void setListWeathersForDaysForBottom(final List<WeatherForDay> newList) {

@@ -1,6 +1,8 @@
 package com.luxary_team.simpleweather.controller.adapters.general;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,10 +20,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.luxary_team.simpleweather.App.DEBUG_TAG;
+
 public class BottomWeatherAdapter extends RecyclerView.Adapter<BottomWeatherAdapter.ViewHolder> {
 
     private List<WeatherForDay> mWeathersList;
-    private Context mContext;
+    private static Context mContext;
+    private static boolean isFirstBind = true;
 
     public BottomWeatherAdapter(final List<WeatherForDay> weathers, final Context context) {
         mWeathersList = weathers;
@@ -55,8 +60,11 @@ public class BottomWeatherAdapter extends RecyclerView.Adapter<BottomWeatherAdap
         holder.mTempTextView.setText(weather.getTmp());
 
         if (position == 0) {
-            Log.d("TAG", "YES, this a big!");
-            holder.setBig(100);
+            if (isFirstBind) {
+                Log.d(DEBUG_TAG, "is first bind and first position");
+                holder.setBig();
+                isFirstBind = false;
+            }
         }
     }
 
@@ -82,8 +90,23 @@ public class BottomWeatherAdapter extends RecyclerView.Adapter<BottomWeatherAdap
             ButterKnife.bind(this, itemView);
         }
 
-        public void setBig(final int diam) {
-            mRoundLayout.setLayoutParams(new ViewGroup.LayoutParams(diam, diam));
+        public void setBig() {
+            LinearLayout.LayoutParams param = (LinearLayout.LayoutParams) mRoundLayout.getLayoutParams();
+            int newHeight = (int) (param.height * 1.2f);
+            int newWidth = (int) (param.height * 1.2f);
+            param.height = newHeight;
+            param.width = newWidth;
+            mRoundLayout.setLayoutParams(param);
+            mRoundLayout.setBackgroundDrawable(createBigShape(newHeight));
+        }
+
+        private Drawable createBigShape(int newHW) {
+            GradientDrawable shape = new GradientDrawable();
+            shape.setShape(GradientDrawable.RECTANGLE);
+            shape.setCornerRadii(new float[]{newHW, newHW, newHW, newHW, newHW, newHW, newHW, newHW});
+            shape.setColor(mContext.getResources().getColor(R.color.weryDark));
+            shape.setStroke(1, mContext.getResources().getColor(R.color.weryDark));
+            return shape;
         }
     }
 }

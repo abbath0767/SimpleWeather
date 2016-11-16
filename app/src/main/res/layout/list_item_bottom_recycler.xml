@@ -13,6 +13,7 @@
         android:id="@+id/day_text_view_list_item_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
         android:background="@null"/>
 
     <LinearLayout
@@ -33,6 +34,7 @@
 
         <TextView
             android:id="@+id/temperature_text_view_list_item_bottom"
+            android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="16 C"
