@@ -55,21 +55,18 @@
         <TextView
             android:id="@+id/description_text_view_current_weather_view"
             android:textSize="24sp"
-            android:text="descr"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/rain_text_view_current_weather_view"
-            android:text="rain"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/wind_text_view_current_weather_view"
-            android:text="wind"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

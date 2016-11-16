@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class GeneralFragment extends Fragment {
         if(!hasConnection(getContext())) {
             showMessage(R.string.internet_error);
         } else {
+            Log.d("TAG", "general presenter == null ? : " + (getPresenter() == null) + " or " + mPresenter.getCityName());
             getPresenter().loadDefaultCity(cityName);
             getPresenter().loadForecastDaily();
         }

@@ -3,6 +3,8 @@
     <color name="colorPrimary">#CC6F0E</color>
     <color name="colorPrimaryDark">#914f0a</color>
     <color name="colorAccent">#CC6F0E</color>
+    <color name="weryDark">#3f0000</color>
+    <color name="lightDark">#db903e</color>
     <color name="colorWhite">#ffffff</color>
     <color name="bottomUnactiveListItem">#ffb235</color>
 </resources>
