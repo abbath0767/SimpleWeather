@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "344002081048",
+    "firebase_url": "https://simpleweather-1478b.firebaseio.com",
+    "project_id": "simpleweather-1478b",
+    "storage_bucket": "simpleweather-1478b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344002081048:android:7b6683ce8bd1c9eb",
+        "android_client_info": {
+          "package_name": "com.luxary_team.simpleweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344002081048-5ikub5g3vo9ujm676vbh4gae9bjnm0vc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMxAHoGcP1v8RQQNLEtiRAhsZ1R3wDpaE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
