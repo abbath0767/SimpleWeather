@@ -59,7 +59,7 @@ public class BottomWeatherAdapter extends RecyclerView.Adapter<BottomWeatherAdap
         holder.mIconImageView.setImageResource(R.drawable.testicon1);
         holder.mTempTextView.setText(weather.getTmp());
 
-        if (position == 0) {
+        if (holder.getAdapterPosition() == 0) {
             if (isFirstBind) {
                 Log.d(DEBUG_TAG, "is first bind and first position");
                 holder.setBig();
