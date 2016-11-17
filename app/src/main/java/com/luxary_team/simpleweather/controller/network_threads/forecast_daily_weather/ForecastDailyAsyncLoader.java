@@ -19,7 +19,6 @@ public class ForecastDailyAsyncLoader extends BaseAsyncLoader<ForecastDailyWeath
         mGeneralPresenter = presenter;
     }
 
-
     @Override
     protected ForecastDailyWeather doInBackground(final String... params) {
 
@@ -47,6 +46,5 @@ public class ForecastDailyAsyncLoader extends BaseAsyncLoader<ForecastDailyWeath
     protected void onPostExecute(final ForecastDailyWeather forecastDailyWeather) {
         super.onPostExecute(forecastDailyWeather);
         mGeneralPresenter.setForecastDaily(forecastDailyWeather);
-        mGeneralPresenter.saveCityToHistory(forecastDailyWeather.getWeathers());
     }
 }

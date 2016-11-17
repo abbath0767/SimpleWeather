@@ -1,4 +1,4 @@
-package com.luxary_team.simpleweather.model.open_weather_adapters.forecast_weather;
+package com.luxary_team.simpleweather.model.open_weather_adapters.forecast_hourly_weather;
 
 import java.util.ArrayList;
 import java.util.List;

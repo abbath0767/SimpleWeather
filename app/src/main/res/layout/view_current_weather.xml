@@ -17,7 +17,6 @@
                 android:id="@+id/city_text_view_current_weather_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HELLO COMPOUND VIEW"
                 android:textColor="@color/colorWhite"
                 android:textSize="32sp"/>
 
@@ -37,8 +36,8 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/icon_image_view_current_weather_view"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:srcCompat="@drawable/testicon1"
                 tools:ignore="MissingPrefix"/>
 
@@ -46,30 +45,34 @@
                 android:id="@+id/temperature_text_view_current_weather_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="temp"
                 android:textColor="@color/colorWhite"
                 android:textSize="48sp"/>
 
         </LinearLayout>
+
 
         <TextView
             android:id="@+id/description_text_view_current_weather_view"
             android:textSize="24sp"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"/>
 
         <TextView
             android:id="@+id/rain_text_view_current_weather_view"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"/>
 
         <TextView
             android:id="@+id/wind_text_view_current_weather_view"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"/>
     </LinearLayout>
+
 
 </merge>

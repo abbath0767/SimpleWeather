@@ -8,12 +8,14 @@ import org.joda.time.DateTimeZone;
 
 import java.util.Locale;
 
+import static com.luxary_team.simpleweather.util.StrForm.TMP_DEF;
+
 public class WeatherForDay {
     private String day;
     private String icon;
     private String tmp;
 
-    public WeatherForDay(final String day, final String icon, final String tmp) {
+    private WeatherForDay(final String day, final String icon, final String tmp) {
         this.day = day;
         this.icon = icon;
         this.tmp = tmp;
@@ -24,7 +26,7 @@ public class WeatherForDay {
         String day = dateTime.dayOfWeek().getAsShortText();
         //todo need update (not need)
         String icon = "nullable icon";
-        String temp =  String.format(Locale.getDefault(), "%.0f°C", old.getTemp().getAverage());
+        String temp =  String.format(Locale.getDefault(), TMP_DEF, old.getTemp().getAverage());
 
         return new WeatherForDay(day, icon, temp);
     }

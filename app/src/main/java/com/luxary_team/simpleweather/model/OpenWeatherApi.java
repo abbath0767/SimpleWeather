@@ -3,7 +3,7 @@ package com.luxary_team.simpleweather.model;
 
 import com.luxary_team.simpleweather.model.open_weather_adapters.current_weather.CurrentCityWeather;
 import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_daily_weather.ForecastDailyWeather;
-import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_weather.ForecastWeather;
+import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_hourly_weather.ForecastHourlyWeather;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,7 +20,7 @@ public interface OpenWeatherApi {
     Call<CurrentCityWeather> loadCity(@Query("q") String cityName);
 
     @GET("/data/2.5/forecast?units=metric&lang=ru&appid=" + APPID)
-    Call<ForecastWeather> loadForecats(@Query("q") String cityName);
+    Call<ForecastHourlyWeather> loadForecats(@Query("q") String cityName);
 
     @GET("/data/2.5/forecast/daily?units=metric&cnt=16&lang=ru&appid=" + APPID)
     Call<ForecastDailyWeather> loadDailyForecast(@Query("q") String cityName);

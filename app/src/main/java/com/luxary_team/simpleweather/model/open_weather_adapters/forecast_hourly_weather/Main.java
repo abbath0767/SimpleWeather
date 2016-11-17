@@ -1,4 +1,4 @@
-package com.luxary_team.simpleweather.model.open_weather_adapters.forecast_weather;
+package com.luxary_team.simpleweather.model.open_weather_adapters.forecast_hourly_weather;
 
 public class Main {
     private float temp;
