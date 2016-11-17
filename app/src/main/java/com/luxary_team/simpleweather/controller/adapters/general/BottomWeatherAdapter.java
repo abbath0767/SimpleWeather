@@ -24,6 +24,10 @@ import static com.luxary_team.simpleweather.App.DEBUG_TAG;
 
 public class BottomWeatherAdapter extends RecyclerView.Adapter<BottomWeatherAdapter.ViewHolder> {
 
+    private final int DEF_ITEM = 0;
+    private final int HEADER_ITEM = 1;
+
+
     private List<WeatherForDay> mWeathersList;
     private static Context mContext;
     private static boolean isFirstBind = true;
@@ -42,16 +46,25 @@ public class BottomWeatherAdapter extends RecyclerView.Adapter<BottomWeatherAdap
         mContext = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
-        View itemElementBottomView = inflater.inflate(R.layout.list_item_bottom_recycler, parent, false);
+        View itemElementBottomView = null;
 
-        ViewHolder viewHolder = new ViewHolder(itemElementBottomView);
+        switch (viewType) {
+            case HEADER_ITEM:
+                itemElementBottomView = inflater.inflate(R.layout.list_item_bottom_recycler, parent, false);
+                break;
+            case DEF_ITEM:
+                itemElementBottomView = inflater.inflate(R.layout.list_item_bottom_recycler, parent, false);
+                break;
+        }
 
-        return viewHolder;
+        return new ViewHolder(itemElementBottomView);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         WeatherForDay weather = mWeathersList.get(position);
+
+        int type = getItemViewType(position);
 
         holder.mDayTextView.setText(weather.getDay());
         //todo update iconManager
@@ -59,13 +72,18 @@ public class BottomWeatherAdapter extends RecyclerView.Adapter<BottomWeatherAdap
         holder.mIconImageView.setImageResource(R.drawable.testicon1);
         holder.mTempTextView.setText(weather.getTmp());
 
-        if (holder.getAdapterPosition() == 0) {
+        if (type == 1) {
             if (isFirstBind) {
                 Log.d(DEBUG_TAG, "is first bind and first position");
                 holder.setBig();
                 isFirstBind = false;
             }
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == 0) ? 1 : 0;
     }
 
     @Override
