@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -31,6 +30,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.luxary_team.simpleweather.controller.data_controllers.BindCityManager.BIND_CITY;
+
 public class GeneralFragment extends Fragment {
 
     private static GeneralPresenter mPresenter;
@@ -45,9 +46,13 @@ public class GeneralFragment extends Fragment {
     @BindView(R.id.recycler_view_general_fragment_right)
     RecyclerView mRecyclerViewRight;
 
-    public static GeneralFragment newInstance() {
+    public static GeneralFragment newInstance(final String cityName) {
+        Bundle args = new Bundle();
+        args.putString(BIND_CITY, cityName);
+
         GeneralFragment fragment = new GeneralFragment();
         mPresenter = GeneralPresenter.getInstance(fragment);
+        fragment.setArguments(args);
 
         return fragment;
     }
@@ -60,7 +65,7 @@ public class GeneralFragment extends Fragment {
 
         manageMenu();
 
-        String cityName = "Moscow";
+        String cityName = getArguments().getString(BIND_CITY);
 
         loadData(cityName);
 
@@ -74,15 +79,12 @@ public class GeneralFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
     private void manageMenu() {
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("");
+
     }
 
     private GeneralPresenter getPresenter() {

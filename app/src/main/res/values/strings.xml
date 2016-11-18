@@ -9,5 +9,8 @@
     <string name="rain_info">Осадки:\u0020</string>
     <string name="wind_info">Ветер: %s м/с</string>
     <string name="cities">Города</string>
+    <string name="back">Назад</string>
+    <string name="add">Добавить</string>
+    <string name="edit">Изменить</string>
 
 </resources>

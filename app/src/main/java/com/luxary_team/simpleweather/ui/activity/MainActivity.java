@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.luxary_team.simpleweather.R;
+import com.luxary_team.simpleweather.controller.data_controllers.BindCityManager;
 import com.luxary_team.simpleweather.ui.fragment.cities.CitiesFragment;
 import com.luxary_team.simpleweather.ui.fragment.general.GeneralFragment;
 
@@ -19,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setGeneralFragment(GeneralFragment.newInstance());
+        setGeneralFragment(GeneralFragment.newInstance(
+                        BindCityManager.getInstance(getApplicationContext()).getBindCity()));
     }
 
     public void setGeneralFragment(final GeneralFragment fragment) {
