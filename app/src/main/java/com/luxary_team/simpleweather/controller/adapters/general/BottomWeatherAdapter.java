@@ -50,6 +50,7 @@ public class BottomWeatherAdapter extends RecyclerView.Adapter<BottomWeatherAdap
 
         switch (viewType) {
             case HEADER_ITEM:
+                isFirstBind = true;
                 itemElementBottomView = inflater.inflate(R.layout.list_item_bottom_recycler, parent, false);
                 break;
             case DEF_ITEM:

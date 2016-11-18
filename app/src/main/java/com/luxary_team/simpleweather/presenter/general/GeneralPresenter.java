@@ -1,7 +1,5 @@
 package com.luxary_team.simpleweather.presenter.general;
 
-import android.util.Log;
-
 import com.luxary_team.simpleweather.controller.network_threads.current_weather.CurrentWeatherAsyncLoader;
 import com.luxary_team.simpleweather.controller.network_threads.forecast_daily_weather.ForecastDailyAsyncLoader;
 import com.luxary_team.simpleweather.controller.network_threads.forecast_hourly_weather.ForecastHourlyAsyncLoader;
@@ -27,7 +25,6 @@ public class GeneralPresenter implements Presenter {
     private String cityName = "Moscow";
 
     public static GeneralPresenter getInstance(final GeneralFragment fragment) {
-        Log.d("TAG", "Create GeneralPresenter");
         if (instance == null)
             instance = new GeneralPresenter(fragment);
 
