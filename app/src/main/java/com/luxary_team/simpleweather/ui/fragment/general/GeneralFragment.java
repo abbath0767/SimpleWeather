@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -55,21 +57,39 @@ public class GeneralFragment extends Fragment {
 
         ButterKnife.bind(this, rootView);
 
+        setHasOptionsMenu(true);
+
         String cityName = "Moscow";
-        if (!hasConnection(getContext())) {
-            showMessage(R.string.internet_error);
-        } else {
-            Log.d("TAG", "general presenter == null ? : " + (getPresenter() == null) + " or " + mPresenter.getCityName());
-            getPresenter().loadDefaultCity(cityName);
-            getPresenter().loadForecastDaily();
-            getPresenter().loadForecastHourly();
-        }
+
+        loadData(cityName);
 
         return rootView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_general, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
     private GeneralPresenter getPresenter() {
         return mPresenter;
+    }
+
+    private void loadData(String cityName) {
+        if (!hasConnection(getContext())) {
+            showMessage(R.string.internet_error);
+        } else {
+            getPresenter().loadDefaultCity(cityName);
+            getPresenter().loadForecastDaily();
+            getPresenter().loadForecastHourly();
+        }
     }
 
     public static boolean hasConnection(final Context context) {

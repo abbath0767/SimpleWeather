@@ -8,5 +8,6 @@
     <string name="zero_rain">отсутствуют</string>
     <string name="rain_info">Осадки:\u0020</string>
     <string name="wind_info">Ветер: %s м/с</string>
+    <string name="cities">Города</string>
 
 </resources>

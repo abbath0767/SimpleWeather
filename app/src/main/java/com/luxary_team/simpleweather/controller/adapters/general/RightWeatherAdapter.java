@@ -43,8 +43,6 @@ public class RightWeatherAdapter extends RecyclerView.Adapter<RightWeatherAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         WeatherFor3Hour weather = mWeatherList.get(position);
 
-        Log.d(DEBUG_TAG, "info: " + weather.toString());
-
         holder.mIconView.setImageResource(R.drawable.testicon1);
         holder.mTempTextView.setText(weather.getTmp());
         holder.mDayTextView.setText(weather.getDay());

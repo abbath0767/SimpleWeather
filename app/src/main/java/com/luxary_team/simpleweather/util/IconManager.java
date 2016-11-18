@@ -30,7 +30,9 @@ public class IconManager {
             return R.drawable.testicon1;
         }
 
-        int id = Integer.valueOf(iconName.substring(iconName.length() - 2, iconName.length()));
+        int number = Integer.valueOf(iconName.substring(0, 2));
+        boolean isDay = iconName.contains("d");
+
 
         //...
         //resourceId = ... id;
