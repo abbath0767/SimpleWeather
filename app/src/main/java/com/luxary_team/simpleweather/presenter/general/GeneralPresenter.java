@@ -10,14 +10,14 @@ import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_daily_
 import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_daily_weather.Weathers;
 import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_hourly_weather.ForecastHourlyWeather;
 import com.luxary_team.simpleweather.model.support_obj.WeatherFor3Hour;
+import com.luxary_team.simpleweather.model.support_obj.WeatherFor3HourComparator;
 import com.luxary_team.simpleweather.model.support_obj.WeatherForDay;
 import com.luxary_team.simpleweather.presenter.Presenter;
 import com.luxary_team.simpleweather.ui.fragment.general.GeneralFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import static com.luxary_team.simpleweather.App.DEBUG_TAG;
 
 public class GeneralPresenter implements Presenter {
 
@@ -55,7 +55,7 @@ public class GeneralPresenter implements Presenter {
 
     public void loadForecastHourly() {
         ForecastHourlyAsyncLoader async = new ForecastHourlyAsyncLoader(this);
-        async.execute(cityName)
+        async.execute(cityName);
     }
 
     public void setForecastDaily(final ForecastDailyWeather forecastDailyWeather) {
@@ -69,20 +69,24 @@ public class GeneralPresenter implements Presenter {
     }
 
     public void setForecastHourly(final ForecastHourlyWeather forecastHourly) {
-        List<WeatherFor3Hour> newList = new ArrayList<>();
+        List<WeatherFor3Hour> list = getListFromAdapter(forecastHourly);
 
+        sortListWeathers(list);
+
+        getView().setListWeathersFor3HourForRiht(list);
+    }
+
+    private List<WeatherFor3Hour> getListFromAdapter(final ForecastHourlyWeather forecastHourly) {
+        List<WeatherFor3Hour> list = new ArrayList<>();
         //i = 8. Design need 8 first hourly items
         for (int i = 0; i < 8; i++) {
-            newList.add(WeatherFor3Hour.valueOf(forecastHourly.getList().get(i)));
+            list.add(WeatherFor3Hour.valueOf(forecastHourly.getList().get(i)));
         }
+        return list;
+    }
 
-        Log.d(DEBUG_TAG, "List size of ForecastHourly: " + newList.size());
-
-        if (!newList.isEmpty()) {
-            for (WeatherFor3Hour weather: newList)
-                Log.d(DEBUG_TAG, weather.toString());
-        }
-
+    private void sortListWeathers(List<WeatherFor3Hour> list) {
+        Collections.sort(list, new WeatherFor3HourComparator());
     }
 
     public void setCityName(String cityName) {

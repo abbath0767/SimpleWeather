@@ -25,10 +25,11 @@ public class WeatherFor3Hour {
     public static WeatherFor3Hour valueOf(final Weather weather) {
 
         DateTime dateTime = new DateTime(weather.getDt() * 1000L, DateTimeZone.getDefault());
-        String day = dateTime.getHourOfDay() + ":" + dateTime.getMinuteOfHour();
+        //minute always = 00;
+        String day = dateTime.getHourOfDay() + ":00";
 
         //todo need icon manager
-        String icon = "nullable icon";
+        String icon = weather.getWeatherD().get(0).getIcon();
         String tmp = String.format(Locale.getDefault(), TMP_DEF, weather.getMain().getTemp());
 
         return new WeatherFor3Hour(day, icon, tmp);

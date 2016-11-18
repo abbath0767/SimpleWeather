@@ -10,8 +10,6 @@ import java.io.IOException;
 
 import retrofit2.Call;
 
-import static com.luxary_team.simpleweather.App.DEBUG_TAG;
-
 
 public class ForecastHourlyAsyncLoader extends BaseAsyncLoader<ForecastHourlyWeather> {
 
@@ -50,7 +48,5 @@ public class ForecastHourlyAsyncLoader extends BaseAsyncLoader<ForecastHourlyWea
         super.onPostExecute(forecastHourlyWeather);
 
         mGeneralPresenter.setForecastHourly(forecastHourlyWeather);
-
-        Log.d(DEBUG_TAG, "onPostExecute! getResult = " + getResult().toString());
     }
 }

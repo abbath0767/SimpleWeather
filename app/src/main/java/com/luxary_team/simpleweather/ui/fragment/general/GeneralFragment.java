@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import com.luxary_team.simpleweather.R;
 import com.luxary_team.simpleweather.controller.adapters.general.BottomWeatherAdapter;
+import com.luxary_team.simpleweather.controller.adapters.general.RightWeatherAdapter;
 import com.luxary_team.simpleweather.model.open_weather_adapters.current_weather.CurrentCityWeather;
+import com.luxary_team.simpleweather.model.support_obj.WeatherFor3Hour;
 import com.luxary_team.simpleweather.model.support_obj.WeatherForDay;
 import com.luxary_team.simpleweather.presenter.general.GeneralPresenter;
 import com.luxary_team.simpleweather.ui.view.CurrentWeatherView;
@@ -31,11 +33,14 @@ public class GeneralFragment extends Fragment {
     private static GeneralPresenter mPresenter;
 
     private List<WeatherForDay> mWeatherForDays;
+    private List<WeatherFor3Hour> mWeatherForHour;
 
     @BindView(R.id.current_weather_view)
     CurrentWeatherView mCurrentWeatherView;
     @BindView(R.id.recycler_view_general_fragment)
     RecyclerView mRecyclerView;
+    @BindView(R.id.recycler_view_general_fragment_right)
+    RecyclerView mRecyclerViewRight;
 
     public static GeneralFragment newInstance() {
         GeneralFragment fragment = new GeneralFragment();
@@ -57,6 +62,7 @@ public class GeneralFragment extends Fragment {
             Log.d("TAG", "general presenter == null ? : " + (getPresenter() == null) + " or " + mPresenter.getCityName());
             getPresenter().loadDefaultCity(cityName);
             getPresenter().loadForecastDaily();
+            getPresenter().loadForecastHourly();
         }
 
         return rootView;
@@ -119,9 +125,21 @@ public class GeneralFragment extends Fragment {
         initBottomRecyclerView();
     }
 
+    public void setListWeathersFor3HourForRiht(List<WeatherFor3Hour> listWeather3Hour) {
+        mWeatherForHour = listWeather3Hour;
+        initRightRecyclerView();
+    }
+
     private void initBottomRecyclerView() {
+        //mb delete last constructor param - context?
         BottomWeatherAdapter adapter = new BottomWeatherAdapter(mWeatherForDays, getContext());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    private void initRightRecyclerView() {
+        RightWeatherAdapter adapter = new RightWeatherAdapter(mWeatherForHour);
+        mRecyclerViewRight.setAdapter(adapter);
+        mRecyclerViewRight.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }

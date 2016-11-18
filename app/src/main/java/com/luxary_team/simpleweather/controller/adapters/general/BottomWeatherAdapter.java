@@ -82,7 +82,7 @@ public class BottomWeatherAdapter extends RecyclerView.Adapter<BottomWeatherAdap
     }
 
     @Override
-    public int getItemViewType(int position) {
+    public int getItemViewType(final int position) {
         return (position == 0) ? 1 : 0;
     }
 
