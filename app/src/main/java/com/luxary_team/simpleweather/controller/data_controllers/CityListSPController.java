@@ -2,24 +2,21 @@ package com.luxary_team.simpleweather.controller.data_controllers;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static com.luxary_team.simpleweather.App.DEBUG_TAG;
 
 public class CityListSPController {
 
     private Context mContext;
 
-    private static CityListSPController instatnce;
+    private static CityListSPController instance;
     private static final String CITY_LIST = "city_list";
 
-    public static CityListSPController getInstatnce(final Context context) {
-        if (instatnce == null)
-            instatnce = new CityListSPController(context);
-        return instatnce;
+    public static CityListSPController getInstance(final Context context) {
+        if (instance == null)
+            instance = new CityListSPController(context);
+        return instance;
     }
 
     private CityListSPController(final Context context) {
@@ -30,7 +27,6 @@ public class CityListSPController {
         Set<String> list = getCitiesFromSP();
         list.add(cityName);
         saveCitiesToSP(list);
-        Log.d(DEBUG_TAG, "add city with name = " + cityName);
     }
 
     private void saveCitiesToSP(final Set<String> list) {
@@ -40,6 +36,10 @@ public class CityListSPController {
     public Set<String> getCitiesFromSP() {
         Set<String> list = new HashSet<>();
         list.add(BindCityManager.getInstance(mContext).getBindCity());
+        //todo mock
+        list.add("Ivanteevka");
+        list.add("Korolev");
+
         return mContext.getSharedPreferences(CITY_LIST, Context.MODE_PRIVATE).getStringSet(CITY_LIST, list);
     }
 
