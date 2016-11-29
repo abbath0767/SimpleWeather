@@ -49,11 +49,16 @@ public class GeneralPresenter implements Presenter {
     }
 
     public void loadDefaultCity(String cityName) {
+        setCityName(cityName);
+
         OpenWeatherApi api = ApiBuilder.buildService();
 
         Subscription getCurrentWeatherRequest =
                 NetworkRequest.asyncRequest(api.loadCityRx(cityName),
-                        data -> setCurrentViewData(data),
+                        data -> {
+                            setCurrentViewData(data);
+                            Log.d(DEBUG_TAG, "descr: " + data.getWeather().getDescription());
+                        },
                         error -> Log.d(DEBUG_TAG, "Error: " + error));
 
         mCompositeSubscription.add(getCurrentWeatherRequest);
@@ -64,7 +69,9 @@ public class GeneralPresenter implements Presenter {
 
         Subscription getForecastDaily =
                 NetworkRequest.asyncRequest(api.loadDailyForecastRx(cityName),
-                        data -> setForecastDaily(data),
+                        data -> {
+                            setForecastDaily(data);
+                        },
                         error -> Log.d(DEBUG_TAG, "Error: " + error));
 
         mCompositeSubscription.add(getForecastDaily);

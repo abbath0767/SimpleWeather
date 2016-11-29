@@ -1,6 +1,8 @@
 package com.luxary_team.simpleweather.controller.adapters.cities;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -57,6 +59,8 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
         holder.mCityName.setText(city);
         //todo need make
+        //need make n-request currentWeather6 where n = count of cities List
+        //but first need make MultiChoiceMode
         holder.mTempTextView.setText("idea?");
 
         if (type == BIND_ITEM) {
@@ -93,8 +97,19 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
         }
 
         void setNewColor() {
+            LinearLayout.LayoutParams param = (LinearLayout.LayoutParams) mRoundLayout.getLayoutParams();
+            int width = param.width;
             //todo remake this for Round
-            mRoundLayout.setBackgroundColor(mContext.getResources().getColor(R.color.weryDark));
+            mRoundLayout.setBackground(getRoundShape(width));
+        }
+
+        public Drawable getRoundShape(final int width) {
+            GradientDrawable shape = new GradientDrawable();
+            shape.setShape(GradientDrawable.RECTANGLE);
+            shape.setCornerRadii(new float[]{width, width, width, width, width, width, width, width});
+            shape.setColor(mContext.getResources().getColor(R.color.weryDark));
+            shape.setStroke(1, mContext.getResources().getColor(R.color.weryDark));
+            return shape;
         }
     }
 }

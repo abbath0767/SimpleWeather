@@ -38,6 +38,8 @@ ext {
     firebaseCrash = '9.8.0'
     rxAndroid = '1.2.1'
     rxJava = '1.1.6'
+    rxAdapter = '2.0.2'
+    multiChoiseRecycler = '1.1.8'
 }
 
 dependencies {
@@ -53,7 +55,7 @@ dependencies {
     compile "com.google.code.gson:gson:$gsonVersion"
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    compile "com.squareup.retrofit2:adapter-rxjava:$rxAdapter"
     //RxAndroid
     compile "io.reactivex:rxandroid:$rxAndroid"
     compile "io.reactivex:rxjava:$rxJava"
@@ -65,6 +67,8 @@ dependencies {
     //firebase crash
     compile "com.google.firebase:firebase-crash:$firebaseCrash"
     compile "com.google.firebase:firebase-core:$firebaseCrash"
+    //RecyclerView MultiSelector
+    compile "com.davidecirillo.multichoicerecyclerview:multichoicerecyclerview:$multiChoiseRecycler"
 
     testCompile 'junit:junit:4.12'
 }

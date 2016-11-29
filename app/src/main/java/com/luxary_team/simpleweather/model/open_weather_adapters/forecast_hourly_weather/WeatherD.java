@@ -10,7 +10,6 @@ public class WeatherD {
         return description;
     }
 
-
     public String getIcon() {
         return icon;
     }
