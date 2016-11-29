@@ -171,4 +171,10 @@ public class GeneralFragment extends Fragment {
         mRecyclerViewRight.setAdapter(adapter);
         mRecyclerViewRight.setLayoutManager(new LinearLayoutManager(getContext()));
     }
+
+    @Override
+    public void onDestroy() {
+        getPresenter().unsubscribe();
+        super.onDestroy();
+    }
 }

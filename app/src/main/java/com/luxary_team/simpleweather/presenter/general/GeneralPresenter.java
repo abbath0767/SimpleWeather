@@ -1,8 +1,10 @@
 package com.luxary_team.simpleweather.presenter.general;
 
-import com.luxary_team.simpleweather.controller.network_threads.current_weather.CurrentWeatherAsyncLoader;
-import com.luxary_team.simpleweather.controller.network_threads.forecast_daily_weather.ForecastDailyAsyncLoader;
-import com.luxary_team.simpleweather.controller.network_threads.forecast_hourly_weather.ForecastHourlyAsyncLoader;
+import android.util.Log;
+
+import com.luxary_team.simpleweather.controller.network_threads.ApiBuilder;
+import com.luxary_team.simpleweather.controller.network_threads.NetworkRequest;
+import com.luxary_team.simpleweather.model.OpenWeatherApi;
 import com.luxary_team.simpleweather.model.open_weather_adapters.current_weather.CurrentCityWeather;
 import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_daily_weather.ForecastDailyWeather;
 import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_daily_weather.Weathers;
@@ -17,12 +19,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
+
+import static com.luxary_team.simpleweather.App.DEBUG_TAG;
+
 public class GeneralPresenter implements Presenter {
 
     private static GeneralPresenter instance;
 
     private GeneralFragment mFragment;
     private String cityName = "Moscow";
+    private CompositeSubscription mCompositeSubscription;
 
     public static GeneralPresenter getInstance(final GeneralFragment fragment) {
         if (instance == null)
@@ -33,6 +41,7 @@ public class GeneralPresenter implements Presenter {
 
     private GeneralPresenter(final GeneralFragment fragment) {
         mFragment = fragment;
+        mCompositeSubscription = new CompositeSubscription();
     }
 
     public GeneralFragment getView() {
@@ -40,25 +49,42 @@ public class GeneralPresenter implements Presenter {
     }
 
     public void loadDefaultCity(String cityName) {
-        CurrentWeatherAsyncLoader async = new CurrentWeatherAsyncLoader(this);
-        setCityName(cityName);
-        async.execute(cityName);
+        OpenWeatherApi api = ApiBuilder.buildService();
+
+        Subscription getCurrentWeatherRequest =
+                NetworkRequest.asyncRequest(api.loadCityRx(cityName),
+                        data -> setCurrentViewData(data),
+                        error -> Log.d(DEBUG_TAG, "Error: " + error));
+
+        mCompositeSubscription.add(getCurrentWeatherRequest);
     }
 
     public void loadForecastDaily() {
-        ForecastDailyAsyncLoader async = new ForecastDailyAsyncLoader(this);
-        async.execute(cityName);
+        OpenWeatherApi api = ApiBuilder.buildService();
+
+        Subscription getForecastDaily =
+                NetworkRequest.asyncRequest(api.loadDailyForecastRx(cityName),
+                        data -> setForecastDaily(data),
+                        error -> Log.d(DEBUG_TAG, "Error: " + error));
+
+        mCompositeSubscription.add(getForecastDaily);
     }
 
     public void loadForecastHourly() {
-        ForecastHourlyAsyncLoader async = new ForecastHourlyAsyncLoader(this);
-        async.execute(cityName);
+        OpenWeatherApi api = ApiBuilder.buildService();
+
+        Subscription getForecastHourly =
+                NetworkRequest.asyncRequest(api.loadForecastRx(cityName),
+                        data -> setForecastHourly(data),
+                        error -> Log.d(DEBUG_TAG, "Error: " + error));
+
+        mCompositeSubscription.add(getForecastHourly);
     }
 
     public void setForecastDaily(final ForecastDailyWeather forecastDailyWeather) {
         List<WeatherForDay> newList = new ArrayList<>();
 
-        for (Weathers weather: forecastDailyWeather.getWeathers()) {
+        for (Weathers weather : forecastDailyWeather.getWeathers()) {
             newList.add(WeatherForDay.valueOf(weather));
         }
 
@@ -96,5 +122,11 @@ public class GeneralPresenter implements Presenter {
 
     public void setCurrentViewData(CurrentCityWeather weather) {
         getView().setCurrentWeatherView(weather);
+    }
+
+    public void unsubscribe() {
+        Log.d(DEBUG_TAG, "clear subscribers");
+        mCompositeSubscription.unsubscribe();
+        mCompositeSubscription.clear();
     }
 }
