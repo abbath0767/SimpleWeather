@@ -3,8 +3,12 @@ package com.luxary_team.simpleweather.controller.data_controllers;
 
 import android.content.Context;
 
+import com.luxary_team.simpleweather.App;
+
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 public class CityListSPController {
 
@@ -12,6 +16,9 @@ public class CityListSPController {
 
     private static CityListSPController instance;
     private static final String CITY_LIST = "city_list";
+
+    @Inject
+    BindCityManager mBindCityManager;
 
     public static CityListSPController getInstance(final Context context) {
         if (instance == null)
@@ -21,6 +28,7 @@ public class CityListSPController {
 
     private CityListSPController(final Context context) {
         mContext = context;
+        App.getComponent().inject(this);
     }
 
     public void addCityToSP(final String cityName) {
@@ -35,7 +43,7 @@ public class CityListSPController {
 
     public Set<String> getCitiesFromSP() {
         Set<String> list = new HashSet<>();
-        list.add(BindCityManager.getInstance(mContext).getBindCity());
+        list.add(mBindCityManager.getBindCity());
         //todo mock
         list.add("Ivanteevka");
         list.add("Korolev");
