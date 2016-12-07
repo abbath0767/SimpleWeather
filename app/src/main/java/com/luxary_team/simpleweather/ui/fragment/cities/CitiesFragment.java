@@ -13,10 +13,8 @@ import android.view.ViewGroup;
 
 import com.luxary_team.simpleweather.R;
 import com.luxary_team.simpleweather.controller.adapters.cities.CitiesAdapter;
-import com.luxary_team.simpleweather.controller.data_controllers.BindCityManager;
 import com.luxary_team.simpleweather.presenter.cities.CitiesPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -57,21 +55,8 @@ public class CitiesFragment extends Fragment {
     }
 
     public void showData(final Set<String> citiesList) {
-        mCitiesList = fromSetToList(citiesList);
+        mCitiesList = getPresenter().fromSetToList(citiesList);
         initRecycler();
-    }
-
-    private List<String> fromSetToList(final Set<String> citiesList) {
-        List<String> list = new ArrayList<>();
-        list.add(BindCityManager.getInstance(getContext()).getBindCity());
-
-        for (String city: citiesList) {
-            if (!city.equals(list.get(0))) {
-                list.add(city);
-            }
-        }
-
-        return list;
     }
 
     private void initRecycler() {

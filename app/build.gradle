@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-apply plugin: 'com.android.application' // or apply plugin: 'java'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 24
@@ -39,7 +39,7 @@ ext {
     rxAndroid = '1.2.1'
     rxJava = '1.1.6'
     rxAdapter = '2.0.2'
-    multiChoiseRecycler = '1.1.8'
+    dagger = '2.8'
 }
 
 dependencies {
@@ -67,8 +67,10 @@ dependencies {
     //firebase crash
     compile "com.google.firebase:firebase-crash:$firebaseCrash"
     compile "com.google.firebase:firebase-core:$firebaseCrash"
-    //RecyclerView MultiSelector
-    compile "com.davidecirillo.multichoicerecyclerview:multichoicerecyclerview:$multiChoiseRecycler"
+    //dagger 2
+    compile "com.google.dagger:dagger:$dagger"
+    apt "com.google.dagger:dagger-compiler:$dagger"
+    compile 'javax.annotation:jsr250-api:1.0'
 
     testCompile 'junit:junit:4.12'
 }

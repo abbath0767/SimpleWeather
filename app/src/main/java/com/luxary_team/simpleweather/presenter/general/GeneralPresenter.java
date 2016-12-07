@@ -31,6 +31,7 @@ public class GeneralPresenter implements Presenter {
     private GeneralFragment mFragment;
     private String cityName = "Moscow";
     private CompositeSubscription mCompositeSubscription;
+    private OpenWeatherApi weatherApi;
 
     public static GeneralPresenter getInstance(final GeneralFragment fragment) {
         if (instance == null)
@@ -42,6 +43,7 @@ public class GeneralPresenter implements Presenter {
     private GeneralPresenter(final GeneralFragment fragment) {
         mFragment = fragment;
         mCompositeSubscription = new CompositeSubscription();
+        weatherApi = ApiBuilder.buildService();
     }
 
     public GeneralFragment getView() {
@@ -51,10 +53,8 @@ public class GeneralPresenter implements Presenter {
     public void loadDefaultCity(String cityName) {
         setCityName(cityName);
 
-        OpenWeatherApi api = ApiBuilder.buildService();
-
         Subscription getCurrentWeatherRequest =
-                NetworkRequest.asyncRequest(api.loadCityRx(cityName),
+                NetworkRequest.asyncRequest(weatherApi.loadCityRx(cityName),
                         data -> {
                             setCurrentViewData(data);
                             Log.d(DEBUG_TAG, "descr: " + data.getWeather().getDescription());
@@ -65,10 +65,8 @@ public class GeneralPresenter implements Presenter {
     }
 
     public void loadForecastDaily() {
-        OpenWeatherApi api = ApiBuilder.buildService();
-
         Subscription getForecastDaily =
-                NetworkRequest.asyncRequest(api.loadDailyForecastRx(cityName),
+                NetworkRequest.asyncRequest(weatherApi.loadDailyForecastRx(cityName),
                         data -> {
                             setForecastDaily(data);
                         },
@@ -78,10 +76,8 @@ public class GeneralPresenter implements Presenter {
     }
 
     public void loadForecastHourly() {
-        OpenWeatherApi api = ApiBuilder.buildService();
-
         Subscription getForecastHourly =
-                NetworkRequest.asyncRequest(api.loadForecastRx(cityName),
+                NetworkRequest.asyncRequest(weatherApi.loadForecastRx(cityName),
                         data -> setForecastHourly(data),
                         error -> Log.d(DEBUG_TAG, "Error: " + error));
 
