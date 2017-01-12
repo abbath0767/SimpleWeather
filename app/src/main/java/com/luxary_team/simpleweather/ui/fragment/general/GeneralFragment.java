@@ -22,6 +22,7 @@ import com.luxary_team.simpleweather.controller.adapters.general.RightWeatherAda
 import com.luxary_team.simpleweather.model.open_weather_adapters.current_weather.CurrentCityWeather;
 import com.luxary_team.simpleweather.model.support_obj.WeatherFor3Hour;
 import com.luxary_team.simpleweather.model.support_obj.WeatherForDay;
+import com.luxary_team.simpleweather.presenter.general.GeneralContract;
 import com.luxary_team.simpleweather.presenter.general.GeneralPresenter;
 import com.luxary_team.simpleweather.ui.view.CurrentWeatherView;
 
@@ -32,8 +33,9 @@ import butterknife.ButterKnife;
 
 import static com.luxary_team.simpleweather.controller.data_controllers.BindCityManager.BIND_CITY;
 
-public class GeneralFragment extends Fragment {
+public class GeneralFragment extends Fragment implements GeneralContract.View {
 
+    //todo we need this filed??
     private static GeneralPresenter mPresenter;
 
     private List<WeatherForDay> mWeatherForDays;
@@ -81,9 +83,9 @@ public class GeneralFragment extends Fragment {
 
     private void manageMenu() {
         setHasOptionsMenu(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
 
     }
 
@@ -95,9 +97,8 @@ public class GeneralFragment extends Fragment {
         if (!hasConnection(getContext())) {
             showMessage(R.string.internet_error);
         } else {
-            getPresenter().loadDefaultCity(cityName);
-            getPresenter().loadForecastDaily();
-            getPresenter().loadForecastHourly();
+            getPresenter().loadData(cityName);
+
         }
     }
 

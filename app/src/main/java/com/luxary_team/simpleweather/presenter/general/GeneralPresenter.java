@@ -12,7 +12,6 @@ import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_hourly
 import com.luxary_team.simpleweather.model.support_obj.WeatherFor3Hour;
 import com.luxary_team.simpleweather.model.support_obj.WeatherFor3HourComparator;
 import com.luxary_team.simpleweather.model.support_obj.WeatherForDay;
-import com.luxary_team.simpleweather.presenter.Presenter;
 import com.luxary_team.simpleweather.ui.fragment.general.GeneralFragment;
 
 import java.util.ArrayList;
@@ -26,11 +25,11 @@ import rx.subscriptions.CompositeSubscription;
 
 import static com.luxary_team.simpleweather.App.DEBUG_TAG;
 
-public class GeneralPresenter implements Presenter {
+public class GeneralPresenter implements GeneralContract.Presenter {
 
     private static GeneralPresenter instance;
 
-    private GeneralFragment mFragment;
+    private GeneralContract.View mFragment;
     private String cityName = "Moscow";
     private CompositeSubscription mCompositeSubscription;
 
@@ -51,8 +50,14 @@ public class GeneralPresenter implements Presenter {
         App.getComponent().inject(this);
     }
 
-    public GeneralFragment getView() {
+    public GeneralContract.View getView() {
         return mFragment;
+    }
+
+    public void loadData(String cityName) {
+        loadDefaultCity(cityName);
+        loadForecastDaily();
+        loadForecastHourly();
     }
 
     public void loadDefaultCity(String cityName) {
