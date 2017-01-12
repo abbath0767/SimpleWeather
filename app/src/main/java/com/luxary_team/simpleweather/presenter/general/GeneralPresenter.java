@@ -2,7 +2,7 @@ package com.luxary_team.simpleweather.presenter.general;
 
 import android.util.Log;
 
-import com.luxary_team.simpleweather.controller.network_threads.ApiBuilder;
+import com.luxary_team.simpleweather.App;
 import com.luxary_team.simpleweather.controller.network_threads.NetworkRequest;
 import com.luxary_team.simpleweather.model.OpenWeatherApi;
 import com.luxary_team.simpleweather.model.open_weather_adapters.current_weather.CurrentCityWeather;
@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -31,19 +33,22 @@ public class GeneralPresenter implements Presenter {
     private GeneralFragment mFragment;
     private String cityName = "Moscow";
     private CompositeSubscription mCompositeSubscription;
-    private OpenWeatherApi weatherApi;
+
+    @Inject
+    OpenWeatherApi weatherApi;
 
     public static GeneralPresenter getInstance(final GeneralFragment fragment) {
-        if (instance == null)
+        if (instance == null) {
             instance = new GeneralPresenter(fragment);
+        }
 
         return instance;
     }
 
-    private GeneralPresenter(final GeneralFragment fragment) {
+    public GeneralPresenter(final GeneralFragment fragment) {
         mFragment = fragment;
         mCompositeSubscription = new CompositeSubscription();
-        weatherApi = ApiBuilder.buildService();
+        App.getComponent().inject(this);
     }
 
     public GeneralFragment getView() {
@@ -104,7 +109,7 @@ public class GeneralPresenter implements Presenter {
 
     private List<WeatherFor3Hour> getListFromAdapter(final ForecastHourlyWeather forecastHourly) {
         List<WeatherFor3Hour> list = new ArrayList<>();
-        //i = 8. Design need 8 first hourly items
+        //i = 8. Design need 8 first hourly items from 16 or 32
         for (int i = 0; i < 8; i++) {
             list.add(WeatherFor3Hour.valueOf(forecastHourly.getList().get(i)));
         }
