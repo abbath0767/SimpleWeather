@@ -11,41 +11,53 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.luxary_team.simpleweather.App;
 import com.luxary_team.simpleweather.R;
 import com.luxary_team.simpleweather.controller.adapters.cities.CitiesAdapter;
+import com.luxary_team.simpleweather.presenter.cities.CitiesContract;
+import com.luxary_team.simpleweather.presenter.cities.CitiesModule;
 import com.luxary_team.simpleweather.presenter.cities.CitiesPresenter;
+import com.luxary_team.simpleweather.presenter.cities.DaggerCitiesComponent;
 
 import java.util.List;
-import java.util.Set;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class CitiesFragment extends Fragment {
+public class CitiesFragment extends Fragment implements CitiesContract.View {
 
     @BindView(R.id.recycler_view_cities)
     RecyclerView mRecycler;
 
     private static final String CITY_LIST = "city_list";
-    private static CitiesPresenter mPresenter;
     private List<String> mCitiesList;
+
+    @Inject
+    CitiesPresenter mPresenter;
 
     public static CitiesFragment newInstance() {
         CitiesFragment fragment = new CitiesFragment();
-        mPresenter = CitiesPresenter.getInstance(fragment);
 
         return fragment;
     }
 
-    public static CitiesPresenter getPresenter() {
+    private CitiesPresenter getPresenter() {
         return mPresenter;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.cities_fragment, container, false);
 
         ButterKnife.bind(this, rootView);
+
+        DaggerCitiesComponent.builder()
+                .dataComponent(App.getComponent())
+                .citiesModule(new CitiesModule(this))
+                .build().inject(this);
 
         manageMenu();
 
@@ -54,8 +66,8 @@ public class CitiesFragment extends Fragment {
         return rootView;
     }
 
-    public void showData(final Set<String> citiesList) {
-        mCitiesList = getPresenter().fromSetToList(citiesList);
+    public void showData(final List<String> citiesList) {
+        mCitiesList = citiesList;
         initRecycler();
     }
 

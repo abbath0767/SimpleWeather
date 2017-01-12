@@ -3,8 +3,6 @@ package com.luxary_team.simpleweather.presenter.cities;
 import com.luxary_team.simpleweather.App;
 import com.luxary_team.simpleweather.controller.data_controllers.BindCityManager;
 import com.luxary_team.simpleweather.controller.data_controllers.CityListSPController;
-import com.luxary_team.simpleweather.presenter.Presenter;
-import com.luxary_team.simpleweather.ui.fragment.cities.CitiesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,27 +11,18 @@ import java.util.Set;
 import javax.inject.Inject;
 
 
-public class CitiesPresenter implements Presenter {
+public class CitiesPresenter implements CitiesContract.Presenter {
 
-    private static CitiesPresenter instance;
-
-    private CitiesFragment mCitiesFragment;
+    private CitiesContract.View mCitiesFragment;
     private Set<String> mCitiesList;
 
     @Inject
     BindCityManager mBindCityManager;
-
     @Inject
     CityListSPController mCityListSPController;
 
-    public static CitiesPresenter getInstance(final CitiesFragment fragment) {
-        if (instance == null)
-            instance = new CitiesPresenter(fragment);
-
-        return instance;
-    }
-
-    private CitiesPresenter(final CitiesFragment fragment) {
+    @Inject
+    public CitiesPresenter(final CitiesContract.View fragment) {
         mCitiesFragment = fragment;
         App.getComponent().inject(this);
     }
@@ -48,7 +37,7 @@ public class CitiesPresenter implements Presenter {
     }
 
     private void viewData() {
-        getView().showData(mCitiesList);
+        getView().showData(fromSetToList(mCitiesList));
     }
 
     public List<String> fromSetToList(final Set<String> citiesList) {
@@ -65,7 +54,7 @@ public class CitiesPresenter implements Presenter {
     }
 
     @Override
-    public CitiesFragment getView() {
+    public CitiesContract.View getView() {
         return mCitiesFragment;
     }
 }

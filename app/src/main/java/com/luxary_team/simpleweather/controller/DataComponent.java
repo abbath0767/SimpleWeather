@@ -2,6 +2,7 @@ package com.luxary_team.simpleweather.controller;
 
 
 import com.luxary_team.simpleweather.AppModule;
+import com.luxary_team.simpleweather.controller.data_controllers.BindCityManager;
 import com.luxary_team.simpleweather.controller.data_controllers.CityListSPController;
 import com.luxary_team.simpleweather.controller.data_controllers.DataModule;
 import com.luxary_team.simpleweather.model.OpenWeatherApi;
@@ -26,4 +27,8 @@ public interface DataComponent {
     void inject(GeneralPresenter generalPresenter);
 
     OpenWeatherApi getOpenWeatherApi();
+
+    BindCityManager getBindCityManager();
+
+    CityListSPController getCityListSPController();
 }

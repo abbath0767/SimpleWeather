@@ -40,11 +40,6 @@ import static com.luxary_team.simpleweather.controller.data_controllers.BindCity
 
 public class GeneralFragment extends Fragment implements GeneralContract.View {
 
-    //todo we need this filed??
-
-    @Inject
-    GeneralPresenter mPresenter;
-
     private List<WeatherForDay> mWeatherForDays;
     private List<WeatherFor3Hour> mWeatherForHour;
 
@@ -54,6 +49,9 @@ public class GeneralFragment extends Fragment implements GeneralContract.View {
     RecyclerView mRecyclerView;
     @BindView(R.id.recycler_view_general_fragment_right)
     RecyclerView mRecyclerViewRight;
+
+    @Inject
+    GeneralPresenter mPresenter;
 
     public static GeneralFragment newInstance(final String cityName) {
         Bundle args = new Bundle();
