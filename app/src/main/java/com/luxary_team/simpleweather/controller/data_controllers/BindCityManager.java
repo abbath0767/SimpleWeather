@@ -7,16 +7,8 @@ public class BindCityManager {
     private static final String DEFAULT_CITY = "Moscow";
     private static Context mContext;
 
-    private static BindCityManager instance;
-
-    private BindCityManager(final Context context) {
+    public BindCityManager(final Context context) {
         mContext = context;
-    }
-
-    public static BindCityManager getInstance(final Context context) {
-        if (instance == null)
-            instance = new BindCityManager(context);
-        return instance;
     }
 
     public String getBindCity() {

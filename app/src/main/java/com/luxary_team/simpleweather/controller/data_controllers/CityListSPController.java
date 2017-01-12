@@ -14,19 +14,12 @@ public class CityListSPController {
 
     private Context mContext;
 
-    private static CityListSPController instance;
     private static final String CITY_LIST = "city_list";
 
     @Inject
     BindCityManager mBindCityManager;
 
-    public static CityListSPController getInstance(final Context context) {
-        if (instance == null)
-            instance = new CityListSPController(context);
-        return instance;
-    }
-
-    private CityListSPController(final Context context) {
+    public CityListSPController(final Context context) {
         mContext = context;
         App.getComponent().inject(this);
     }

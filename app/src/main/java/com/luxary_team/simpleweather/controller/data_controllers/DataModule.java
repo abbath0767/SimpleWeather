@@ -14,12 +14,12 @@ public class DataModule {
     @Provides
     @Singleton
     public BindCityManager provideBindCityManager(Context context) {
-        return BindCityManager.getInstance(context);
+        return new BindCityManager(context);
     }
 
     @Provides
     @Singleton
     public CityListSPController provideCityListSPController(Context context) {
-        return CityListSPController.getInstance(context);
+        return new CityListSPController(context);
     }
 }
