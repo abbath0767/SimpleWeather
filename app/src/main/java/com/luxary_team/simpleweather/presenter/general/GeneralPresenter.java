@@ -2,7 +2,6 @@ package com.luxary_team.simpleweather.presenter.general;
 
 import android.util.Log;
 
-import com.luxary_team.simpleweather.App;
 import com.luxary_team.simpleweather.controller.network_threads.NetworkRequest;
 import com.luxary_team.simpleweather.model.OpenWeatherApi;
 import com.luxary_team.simpleweather.model.open_weather_adapters.current_weather.CurrentCityWeather;
@@ -26,29 +25,19 @@ import static com.luxary_team.simpleweather.App.DEBUG_TAG;
 
 public class GeneralPresenter implements GeneralContract.Presenter {
 
-    private static GeneralPresenter instance;
-
-    private GeneralContract.View mFragment;
     private String cityName = "Moscow";
     private CompositeSubscription mCompositeSubscription;
 
-    @Inject
-    OpenWeatherApi weatherApi;
-
-    public static GeneralPresenter getInstance(final GeneralContract.View fragment) {
-        if (instance == null) {
-            instance = new GeneralPresenter(fragment, null);
-        }
-
-        return instance;
-    }
+    private GeneralContract.View mFragment;
+    private OpenWeatherApi weatherApi;
 
     @Inject
     public GeneralPresenter(GeneralContract.View fragment, OpenWeatherApi weatherApi) {
+        Log.d(DEBUG_TAG, "GeneralPresenter Constructor");
+//        App.getComponent().inject(this);
         mFragment = fragment;
         this.weatherApi = weatherApi;
         mCompositeSubscription = new CompositeSubscription();
-        App.getComponent().inject(this);
     }
 
     public GeneralContract.View getView() {

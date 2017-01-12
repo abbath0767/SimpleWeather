@@ -16,8 +16,6 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = CitiesFragment.class.getName();
-
     @Inject
     BindCityManager mBindCityManager;
 

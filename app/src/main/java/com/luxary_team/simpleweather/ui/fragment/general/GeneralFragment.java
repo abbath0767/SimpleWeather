@@ -73,7 +73,7 @@ public class GeneralFragment extends Fragment implements GeneralContract.View {
         DaggerGeneralComponent.builder()
                 .dataComponent(App.getComponent())
                 .generalModule(new GeneralModule(this))
-                .build();
+                .build().inject(this);
 
         manageMenu();
 
@@ -108,7 +108,6 @@ public class GeneralFragment extends Fragment implements GeneralContract.View {
             showMessage(R.string.internet_error);
         } else {
             getPresenter().loadData(cityName);
-
         }
     }
 
