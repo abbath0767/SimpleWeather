@@ -16,17 +16,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.luxary_team.simpleweather.App;
 import com.luxary_team.simpleweather.R;
 import com.luxary_team.simpleweather.controller.adapters.general.BottomWeatherAdapter;
 import com.luxary_team.simpleweather.controller.adapters.general.RightWeatherAdapter;
 import com.luxary_team.simpleweather.model.open_weather_adapters.current_weather.CurrentCityWeather;
 import com.luxary_team.simpleweather.model.support_obj.WeatherFor3Hour;
 import com.luxary_team.simpleweather.model.support_obj.WeatherForDay;
+import com.luxary_team.simpleweather.presenter.general.DaggerGeneralComponent;
 import com.luxary_team.simpleweather.presenter.general.GeneralContract;
+import com.luxary_team.simpleweather.presenter.general.GeneralModule;
 import com.luxary_team.simpleweather.presenter.general.GeneralPresenter;
 import com.luxary_team.simpleweather.ui.view.CurrentWeatherView;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +41,9 @@ import static com.luxary_team.simpleweather.controller.data_controllers.BindCity
 public class GeneralFragment extends Fragment implements GeneralContract.View {
 
     //todo we need this filed??
-    private static GeneralPresenter mPresenter;
+
+    @Inject
+    GeneralPresenter mPresenter;
 
     private List<WeatherForDay> mWeatherForDays;
     private List<WeatherFor3Hour> mWeatherForHour;
@@ -53,7 +60,6 @@ public class GeneralFragment extends Fragment implements GeneralContract.View {
         args.putString(BIND_CITY, cityName);
 
         GeneralFragment fragment = new GeneralFragment();
-        mPresenter = GeneralPresenter.getInstance(fragment);
         fragment.setArguments(args);
 
         return fragment;
@@ -64,6 +70,10 @@ public class GeneralFragment extends Fragment implements GeneralContract.View {
         View rootView = inflater.inflate(R.layout.general_fragment, container, false);
 
         ButterKnife.bind(this, rootView);
+        DaggerGeneralComponent.builder()
+                .dataComponent(App.getComponent())
+                .generalModule(new GeneralModule(this))
+                .build();
 
         manageMenu();
 

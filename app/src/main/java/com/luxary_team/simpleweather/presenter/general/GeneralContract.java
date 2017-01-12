@@ -22,10 +22,6 @@ public interface GeneralContract {
     interface Presenter {
         View getView();
 
-        void loadDefaultCity(final String cityName);
-
-        void loadForecastDaily();
-
-        void loadForecastHourly();
+        void loadData(String cityName);
     }
 }

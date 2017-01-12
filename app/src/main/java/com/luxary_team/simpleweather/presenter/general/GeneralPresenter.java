@@ -12,7 +12,6 @@ import com.luxary_team.simpleweather.model.open_weather_adapters.forecast_hourly
 import com.luxary_team.simpleweather.model.support_obj.WeatherFor3Hour;
 import com.luxary_team.simpleweather.model.support_obj.WeatherFor3HourComparator;
 import com.luxary_team.simpleweather.model.support_obj.WeatherForDay;
-import com.luxary_team.simpleweather.ui.fragment.general.GeneralFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,16 +35,18 @@ public class GeneralPresenter implements GeneralContract.Presenter {
     @Inject
     OpenWeatherApi weatherApi;
 
-    public static GeneralPresenter getInstance(final GeneralFragment fragment) {
+    public static GeneralPresenter getInstance(final GeneralContract.View fragment) {
         if (instance == null) {
-            instance = new GeneralPresenter(fragment);
+            instance = new GeneralPresenter(fragment, null);
         }
 
         return instance;
     }
 
-    public GeneralPresenter(final GeneralFragment fragment) {
+    @Inject
+    public GeneralPresenter(GeneralContract.View fragment, OpenWeatherApi weatherApi) {
         mFragment = fragment;
+        this.weatherApi = weatherApi;
         mCompositeSubscription = new CompositeSubscription();
         App.getComponent().inject(this);
     }

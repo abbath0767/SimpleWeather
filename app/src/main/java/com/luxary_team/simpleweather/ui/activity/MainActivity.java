@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = CitiesFragment.class.getName();
 
     @Inject
-    BindCityManager mBindCityNanager;
+    BindCityManager mBindCityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         App.getComponent().inject(this);
 
-        setGeneralFragment(GeneralFragment.newInstance(mBindCityNanager.getBindCity()));
+        setGeneralFragment(GeneralFragment.newInstance(mBindCityManager.getBindCity()));
     }
 
     public void setGeneralFragment(final GeneralFragment fragment) {
